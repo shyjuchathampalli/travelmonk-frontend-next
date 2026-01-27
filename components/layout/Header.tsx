@@ -4,7 +4,12 @@ import { Tag, Headset, UserCircle } from "lucide-react";
 
 export default function Header() {
   return (
-    <header className="w-full bg-white shadow-sm">
+    <header
+  className="w-full bg-white relative"
+  style={{
+    boxShadow: "0 1px 0 rgba(0,0,0,0.08)",
+  }}
+>
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         
         {/* Left: Logo */}
@@ -31,7 +36,7 @@ export default function Header() {
           {/* Customer Service */}
           <button className="flex items-center gap-2 hover:text-black transition">
             <Headset className="h-4 w-4 text-blue-500" />
-            <span className="font-medium">Customer Service</span>
+            <span className="font-medium">Customer Service...</span>
           </button>
 
           {/* Login / Signup */}
