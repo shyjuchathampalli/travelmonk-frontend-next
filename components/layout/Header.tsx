@@ -30,13 +30,13 @@ export default function Header() {
           {/* Offers */}
           <button className="flex items-center gap-2 hover:text-black transition">
             <Tag className="h-4 w-4 text-orange-500" />
-            <span className="font-medium">Offers...</span>
+            <span className="font-medium">Offers:</span>
           </button>
 
           {/* Customer Service */}
           <button className="flex items-center gap-2 hover:text-black transition">
             <Headset className="h-4 w-4 text-blue-500" />
-            <span className="font-medium">Customer Service</span>
+            <span className="font-medium">Customer Service:</span>
           </button>
 
           {/* Login / Signup */}
