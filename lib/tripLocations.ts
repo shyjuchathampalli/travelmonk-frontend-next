@@ -1,4 +1,19 @@
-export const TRIP_LOCATIONS: Record<string, any> = {
+// lib/tripLocations.ts
+
+export type TripLocation = {
+  name: string;
+  tagline: string;
+  heroImage: string;
+  minDays: number;
+  arrivalHints: string[];
+  categories: string[];
+  suggestedTrips?: {
+    title: string;
+    days: number;
+  }[];
+};
+
+export const TRIP_LOCATIONS: Record<string, TripLocation> = {
   kerala: {
     name: "Kerala",
     tagline: "God’s Own Country",

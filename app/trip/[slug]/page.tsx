@@ -1,34 +1,36 @@
 import { notFound } from "next/navigation";
-import { TRIP_LOCATIONS } from "@/lib/tripLocations";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import TripHero from "@/components/trip/TripHero";
 import TripRequestSection from "@/components/trip/TripRequestSection";
+import LatestPackagesSection from "@/components/trip/LatestPackagesSection";
 
-/* ✅ REQUIRED for output: "export" */
-export function generateStaticParams() {
-  return Object.keys(TRIP_LOCATIONS).map((slug) => ({
-    slug,
-  }));
-}
+import { fetchStateBySlug } from "@/services/states";
 
-export default function TripPage({
+export const dynamic = "force-dynamic";
+
+export default async function TripPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  
-  //  const location = TRIP_LOCATIONS[params.slug];
-  const location = TRIP_LOCATIONS["kerala"];
+  const { slug } = await params;
 
+  console.log("TRIP SLUG:", slug);
 
-  if (!location) notFound();
+  let state;
+  try {
+    state = await fetchStateBySlug(slug);
+  } catch {
+    notFound();
+  }
 
   return (
     <>
       <Header />
-      <TripHero location={location} />
-      <TripRequestSection location={location} />
+      <TripHero state={state} />
+      <TripRequestSection state={state} />
+      <LatestPackagesSection state={state} />
       <Footer />
     </>
   );
