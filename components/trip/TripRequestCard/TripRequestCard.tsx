@@ -4,7 +4,7 @@ import InterestSelector from "./InterestSelector";
 import { State } from "@/services/states";
 
 type TripRequestCardProps = {
-  state: State;
+  state?: State;
 };
 
 export default function TripRequestCard({ state }: TripRequestCardProps) {
@@ -16,7 +16,7 @@ export default function TripRequestCard({ state }: TripRequestCardProps) {
 
         <InputBox
           icon={<MapPin />}
-          placeholder={`Travel purpose in ${state.name}`}
+          placeholder={`Travel purpose in ${state?.name}`}
         />
 
         <InputBox
@@ -40,7 +40,7 @@ export default function TripRequestCard({ state }: TripRequestCardProps) {
       {/* Interests */}
       <div className="mt-8">
         <h4 className="text-sm font-medium text-gray-700 mb-4">
-          Where would you like to go in {state.name}?
+          Where would you like to go in {state?.name}?
         </h4>
         <InterestSelector />
       </div>
