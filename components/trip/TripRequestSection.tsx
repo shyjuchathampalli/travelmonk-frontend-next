@@ -3,13 +3,21 @@
 import TripRequestCard from "./TripRequestCard/TripRequestCard";
 import { State } from "@/services/states";
 
+type Props = {
+  state?: State;
+  floating?: boolean;
+};
+
 export default function TripRequestSection({
   state,
-}: {
-  state: State;
-}) {
+  floating = false,
+}: Props) {
   return (
-    <section className="relative -mt-32 z-20">
+    <section
+      className={`relative z-20 ${
+        floating ? "-mt-40" : "-mt-32"
+      }`}
+    >
       <div className="max-w-6xl mx-auto px-6">
         <TripRequestCard state={state} />
       </div>
