@@ -1,18 +1,28 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { Tag, Headset, UserCircle } from "lucide-react";
+import { Tag, Headset, UserCircle, LogOut } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "@/store/store";
+import { logoutUser } from "@/store/authSlice";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
+    router.push("/login");
+  };
+
   return (
-    <header
-  className="w-full bg-white relative"
-  style={{
-    boxShadow: "0 1px 0 rgba(0,0,0,0.08)",
-  }}
->
+    <header className="w-full bg-white relative shadow-sm">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-        
-        {/* Left: Logo */}
+
+        {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/travel-monk-logo.png"
@@ -24,29 +34,40 @@ export default function Header() {
           />
         </Link>
 
-        {/* Right: Actions */}
         <div className="flex items-center gap-8 text-sm text-gray-700">
 
-          {/* Offers */}
           <button className="flex items-center gap-2 hover:text-black transition">
             <Tag className="h-4 w-4 text-orange-500" />
-            <span className="font-medium">Offers..</span>
+            <span className="font-medium">Offers</span>
           </button>
 
-          {/* Customer Service */}
           <button className="flex items-center gap-2 hover:text-black transition">
             <Headset className="h-4 w-4 text-blue-500" />
             <span className="font-medium">Customer Service</span>
           </button>
 
-          {/* Login / Signup */}
-          <button className="flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1.5 hover:bg-blue-100 transition">
-            <UserCircle className="h-5 w-5 text-blue-600" />
-            <span className="font-medium text-blue-700">
-              Log in | Sign up
-            </span>
-          </button>
+          {/* Auth Section */}
+          {user ? (
+            <div className="flex items-center gap-4">
+              <span className="font-semibold text-gray-800">
+                Welcome, {user.name}
+              </span>
 
+              <button
+                onClick={handleLogout}
+                className="rounded-md bg-red-500 px-4 py-1 text-white"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="rounded-md bg-blue-600 px-4 py-2 text-white"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </header>
