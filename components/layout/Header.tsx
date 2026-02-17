@@ -37,11 +37,6 @@ export default function Header() {
         <div className="flex items-center gap-8 text-sm text-gray-700">
 
           <button className="flex items-center gap-2 hover:text-black transition">
-            <Tag className="h-4 w-4 text-orange-500" />
-            <span className="font-medium">Offers</span>
-          </button>
-
-          <button className="flex items-center gap-2 hover:text-black transition">
             <Headset className="h-4 w-4 text-blue-500" />
             <span className="font-medium">Customer Service</span>
           </button>
