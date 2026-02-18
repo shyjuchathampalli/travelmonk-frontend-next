@@ -1,10 +1,14 @@
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PackageHeader from "@/components/package/PackageHeader";
 import TripRequestForm from "@/components/package/TripRequestForm";
 import DayByDayAccordion from "@/components/package/DayByDayAccordion";
 import { fetchPackageBySlug } from "@/services/packageDetails";
+import TripRequestFormSkeleton from "@/components/package/TripRequestFormSkeleton";
+import DayByDayAccordionSkeleton from "@/components/package/DayByDayAccordionSkeleton";
+import PackageHeaderSkeleton from "@/components/package/PackageHeaderSkeleton";
 
 export default async function PackagePage({
   params,
@@ -29,13 +33,20 @@ export default async function PackagePage({
 
           {/* RIGHT SIDE - 60% */}
           <div className="lg:col-span-3">
-            <TripRequestForm />
-            <DayByDayAccordion dayPlans={pkg.day_plans} />
+            <Suspense fallback={<TripRequestFormSkeleton />}>
+              <TripRequestForm />
+            </Suspense>
+
+            <Suspense fallback={<DayByDayAccordionSkeleton />}>
+              <DayByDayAccordion dayPlans={pkg.day_plans} />
+            </Suspense>
           </div>
 
           {/* LEFT SIDE - 40% */}
           <div className="lg:col-span-2">
-            <PackageHeader pkg={pkg} />
+            <Suspense fallback={<PackageHeaderSkeleton />}>
+              <PackageHeader pkg={pkg} />
+            </Suspense>
           </div>
 
           
