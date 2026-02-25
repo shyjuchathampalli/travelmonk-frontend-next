@@ -13,7 +13,7 @@ import PackageHeaderSkeleton from "@/components/package/PackageHeaderSkeleton";
 export default async function PackagePage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) {
   const { slug } = await params; // 🔥 MUST await
 
@@ -25,6 +25,7 @@ export default async function PackagePage({
 
   const pkg = response.data;
 
+
   return (
     <>
       <Header />
@@ -34,11 +35,18 @@ export default async function PackagePage({
           {/* RIGHT SIDE - 60% */}
           <div className="lg:col-span-3">
             <Suspense fallback={<TripRequestFormSkeleton />}>
-              <TripRequestForm />
+              <TripRequestForm 
+                slug={slug} 
+                packageId={pkg.id}
+                packageDays={pkg.number_of_days} 
+              />
             </Suspense>
 
             <Suspense fallback={<DayByDayAccordionSkeleton />}>
-              <DayByDayAccordion dayPlans={pkg.day_plans} />
+              <DayByDayAccordion
+                slug={slug}
+                dayPlans={pkg.day_plans}
+              />
             </Suspense>
           </div>
 
