@@ -53,7 +53,7 @@ export default async function PackagePage({
           {/* LEFT SIDE - 40% */}
           <div className="lg:col-span-2">
             <Suspense fallback={<PackageHeaderSkeleton />}>
-              <PackageHeader pkg={pkg} />
+              <PackageHeader pkg={pkg} slug={slug} />
             </Suspense>
           </div>
 
